@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+       <div class="list-product">
+       <% products.forEach(product => { %>
+        <% if (product.status) { %>
+        <div class="card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1707343848723-bd87dea7b118?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="card-img-product">
+            </div>
+            <div class="card-info">
+                <h2 class="card-name-product">
+                    <%= product.name_product %>
+                </h2>
+                <span class="card-price-product">
+                    <%= product.price_product %>
+                </span>
+            </div>
+            <div class="card-btn">
+                <button class="btn-add-cart">Add to cart</button>
+            </div>
+        </div>
+        <% } else { %>
+            <p>Hết hàng</p>
+        <% } %>
+       <% }); %>
+       </div>
+    </div>
+</body>
+</html>
