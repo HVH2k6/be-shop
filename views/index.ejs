@@ -12,7 +12,7 @@
     <div class="container">
        <div class="list-product">
        <% products.forEach(product => { %>
-        <% if (product.status) { %>
+        <% if (product.status=="active") { %>
         <div class="card">
             <div class="card-image">
                 <img src="https://images.unsplash.com/photo-1707343848723-bd87dea7b118?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="card-img-product">
@@ -29,8 +29,6 @@
                 <button class="btn-add-cart">Add to cart</button>
             </div>
         </div>
-        <% } else { %>
-            <p>Hết hàng</p>
         <% } %>
        <% }); %>
        </div>

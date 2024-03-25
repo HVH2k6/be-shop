@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/page/dashboard.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang quản lý sản phẩm</title>
+  </head>
+  <body>
+    <div class="">
+      <%- include ("../../layout/header-admin.ejs") %>
+      <div class="layout-admin">
+        <div class=""><%- include ("../../layout/admin-slidebar.ejs") %></div>
+        <div class="content-dashboard">
+          <h1 class="title">Danh sách sản phẩm</h1>
+          <div class="list-dashboard-product">
+            <div class="row mb-3">
+             <div class="col-6">
+                <form action="" id="form-search">
+                    <div class="input-group ">
+                        <input
+                     type="text"
+                        class="form-control"
+                       placeholder="Nhập tên sản phẩm cần tìm"
+                       name="keyword"
+                        />
+                        <button
+                          class="btn btn-outline-secondary"
+                          type="button"
+                          id="button-addon2"
+                          type="submit"
+                        >
+                          Tìm kiếm
+                        </button>
+                </form>         
+       
+              </div>
+             </div>
+              <div class="col-4">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  button-status=""
+                >
+                  Tất cả
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  button-status="active"
+                >
+                  Hoạt động
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  button-status="inactive"
+                >
+                  Không hoạt động
+                </button>
+              </div>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Stt</th>
+                  <th scope="col">Hình ảnh</th>
+                  <th scope="col">Tên sản phẩm</th>
+                  <th scope="col">Giá</th>
+                  <th scope="col">Trạng thái</th>
+                  <th scope="col">Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% products.forEach((product, index) => { %>
+                <tr>
+                  <th scope="row"><%- index + 1 %></th>
+                  <td>
+                    <img
+                      src="<%- product.image_product %>"
+                      alt="Ảnh <%- product.name_product %>"
+                      class="img-product"
+                      loading="lazy"
+                    />
+                  </td>
+                  <td><%- product.name_product %></td>
+                  <td><%- product.price_product %> usd</td>
+                  <td>
+                    <% if (product.status == "active") { %>
+                    <span class="status-active">hoạt động</span>
+                    <% } else { %>
+                    <span class="status-inactive">không hoạt động</span>
+                    <% } %>
+                  </td>
+                  <td>
+                    <div class="active">
+                      <button type="button" class="btn btn-primary">Sửa</button>
+                      <button type="button" class="btn btn-danger">Xóa</button>
+                    </div>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/0bcc6600f3.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="/js/script.js"></script>
+</html>

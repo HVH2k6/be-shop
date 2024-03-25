@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema({
     name_product: String,
     price_product: Number,
     image_product: String,
-    status: Boolean
+    status: String
 });
 
 // Define the model
