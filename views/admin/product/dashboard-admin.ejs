@@ -16,7 +16,7 @@
     <title>Trang quản lý sản phẩm</title>
   </head>
   <body>
-    <div class="">
+    
       <%- include ("../../layout/header-admin.ejs") %>
       <div class="layout-admin">
         <div class=""><%- include ("../../layout/admin-slidebar.ejs") %></div>
@@ -25,13 +25,14 @@
           <div class="list-dashboard-product">
             <div class="row mb-3">
              <div class="col-6">
-                <form action="" id="form-search">
+                <form action="" id="form-search" autocomplete="off">
                     <div class="input-group ">
                         <input
                      type="text"
                         class="form-control"
                        placeholder="Nhập tên sản phẩm cần tìm"
                        name="keyword"
+                       value="<%- keyword %>"
                         />
                         <button
                           class="btn btn-outline-secondary"
@@ -111,14 +112,40 @@
                 <% }); %>
               </tbody>
             </table>
+           
+            <ul class="pagination">
+              <% if (currentPage > 1) { %>
+              <li class="page-item">
+                  <button class="page-link" button-pagination="1">Trang đầu</button>
+                  
+                </li>
+                <% } %>
+              <% if (currentPage > 1) { %>
+                <li class="page-item">
+                  <button class="page-link" button-pagination="<%= currentPage - 1 %>">Trang trước</button>
+                </li>
+              <% } %>
+              <% for (let page = currentPage-1; page <= currentPage+1; page++) { %>
+                <% if (page > 0 && page <= totalPage) { %>
+                  <li class="page-item <%= page == currentPage ? 'active' : '' %>" >
+                    <button class="page-link" button-pagination="<%= page %>"><%= page %></button>
+                  </li>
+                <% } %>
+              <% } %>
+              <% if (currentPage < totalPage) { %>
+                <li class="page-item">
+                  <button class="page-link" button-pagination="<%= currentPage + 1 %>">Trang sau</button>
+                </li>
+              <% } %>
+
+            </ul>
+            
+            
           </div>
         </div>
       </div>
-    </div>
+    
   </body>
-  <script
-    src="https://kit.fontawesome.com/0bcc6600f3.js"
-    crossorigin="anonymous"
-  ></script>
   <script src="/js/script.js"></script>
+
 </html>
