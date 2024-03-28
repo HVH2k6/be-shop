@@ -19,22 +19,8 @@
   <body>
     <%- include ("../../layout/header-admin.ejs") %>
     <div class="layout-admin">
-     
-      
       <div class=""><%- include ("../../layout/admin-slidebar.ejs") %></div>
       <div class="content-dashboard">
-        <% if (successMessage) { %>
-          <div class="alert alert-success">
-            <%= successMessage %>
-          </div>
-        <% } %>
-        
-        <% if (errorMessage) { %>
-          <div class="alert alert-error">
-            <%= errorMessage %>
-          </div>
-        <% } %>
-        
         <h1 class="title">Danh sách sản phẩm</h1>
         <div class="list-dashboard-product">
           <div class="mb-4">
@@ -48,7 +34,7 @@
               </div>
           </div>
           <div class="mb-4">     
-              <%- include("../../../components/form-change-multi.ejs") %>
+              <%- include("../../../components/form-trash.ejs") %>
           </div>
       </div>
       
@@ -62,8 +48,6 @@
                 <th scope="col">Hình ảnh</th>
                 <th scope="col">Tên sản phẩm</th>
                 <th scope="col">Giá</th>
-                <th scope="col">Vị trí</th>
-
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Hành động</th>
               </tr>
@@ -83,9 +67,6 @@
                 </td>
                 <td><%- product.name_product %></td>
                 <td><%- product.price_product %> usd</td>
-                <td>
-                  <input type="number" style="width: 60px" name="position" min="1" value="<%- product.position %>">
-                </td>
                 <td>
                   <% if (product.status == "active") { %>
                   <a
@@ -110,7 +91,7 @@
                 <td>
                   <div class="active">
                     <button type="button" class="btn btn-primary">Sửa</button>
-                    <button type="button" class="btn btn-danger btn-delete" data-id="<%- product._id %>">Xóa</button>
+                    <button type="button" class="btn btn-danger btn-restore" data-id="<%- product._id %>">Khôi phục</button>
                   </div>
                 </td>
               </tr>
@@ -122,9 +103,10 @@
         </div>
       </div>
       <form data-path="/admin/product" id="form-status" method="POST"></form>
-      <form  data-path="/admin/product/delete" method="POST" id="form-delete"></form>
+      <form  data-path="/admin/product/restore" method="POST" id="form-restore"></form>
     </div>
   </body>
-  <script src="/js/script.js"></script>
+  <script src="/js/trash.js"></script>
+  <!-- <script src="/js/script.js"></script> -->
   <script src="/js/product.js"></script>
-</html>
+  </html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/reset.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="text-center my-5">Tạo mới sản phẩm</h2>
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Tên sản phẩm</label>
+          <input type="text" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Giá</label>
+          <input type="number" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Giảm giá</label>
+          <input type="number" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Số lượng</label>
+          <input type="number" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Ảnh</label>
+          <input type="text" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mô tả</label>
+          <textarea class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <label  class="form-label">Vị trí</label>
+            <input
+              type="number"
+              class="form-control"
+              
+            />
+          </div>
+          <div class="mb-3 d-flex align-items-center">
+            <div class="form-check ml-2">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Hoạt động
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <label class="form-check-label" for="flexCheckChecked">
+                  Không hoạt động
+                </label>
+              </div>
+          </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</html>

@@ -5,7 +5,9 @@ const productSchema = new mongoose.Schema({
     name_product: String,
     price_product: Number,
     image_product: String,
-    status: String
+    status: String,
+    deleted: Boolean,
+    position: Number,
 });
 
 // Define the model

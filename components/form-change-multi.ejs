@@ -1,12 +1,36 @@
-<form action="/admin/product/change-multiple?_method=PATCH" class="row" form-change-multiple method="POST">
-    <div class="col-2">
-        <select class="form-select" aria-label="Default select example" name="type">
-      <option value="active">Hoạt động</option>
-      <option value="inactive">Dừng hoạt động</option>
-    </select>
-    </div>
-    <button class="col-1 btn btn-primary" type="submit">Áp dụng</button>
-    <div class="">
-      <input type="text" name="ids" class="form-control d-none ">
+<div class="row">
+  <form
+    action="/admin/product/change-multiple?_method=PATCH"
+    class="col-6"
+    form-change-multiple
+    method="POST"
+  >
+    <div class="row">
+      <div class="col-3">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          name="type"
+        >
+          <option disabled selected>--Chọn hành động--</option>
+
+          <option value="active">Hoạt động</option>
+          <option value="inactive">Dừng hoạt động</option>
+          <option value="delete">Xóa</option>
+          <option value="position">Thay đổi vị trí</option>
+        </select>
+      </div>
+      <button class="col-2 btn btn-primary" type="submit">Áp dụng</button>
+
+      <div class="">
+        <input type="text" name="ids" class="form-control d-none" />
+      </div>
     </div>
   </form>
+  <div class="col-1">
+    <a href="/admin/product/trash" class="btn btn-primary">Thùng rác</a>
+  </div>
+  <a href="/admin/product/create" class="col-2 btn btn-primary"
+    >Tạo mới sản phẩm</a
+  >
+</div>

@@ -21,3 +21,82 @@ if (btn_change_status.length > 0) {
     });
   });
 }
+const checkBoxMultiple = document.querySelector("[check-multiple]");
+if (checkBoxMultiple) {
+  const checkBoxAll = checkBoxMultiple.querySelectorAll(
+    "input[name='checkAll']"
+  );
+
+  const checkId = checkBoxMultiple.querySelectorAll("input[name='id']");
+  checkBoxAll.forEach((checkBox) => {
+    checkBox.addEventListener("click", (event) => {
+      checkId.forEach((check) => {
+        check.checked = event.target.checked;
+      });
+    });
+  });
+  checkId.forEach((check) => {
+    check.addEventListener("click", () => {
+      const coutCheck = checkBoxMultiple.querySelectorAll(
+        "input[name='id']:checked"
+      ).length;
+      console.log("check.addEventListener ~ coutCheck:", coutCheck);
+      console.log(checkId.length);
+      if (coutCheck === checkId.length) {
+        checkBoxAll.forEach((checkbox) => {
+          checkbox.checked = true;
+        });
+      } else {
+        checkBoxAll.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+      }
+    });
+  });
+}
+const formCheck = document.querySelector("[form-change-multiple]");
+if (formCheck) {
+  formCheck.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const checkId = document.querySelectorAll("input[name='id']:checked");
+    const checkMultiple = document.querySelector("[ check-multiple]");
+   const typeChange = event.target.elements.type.value; 
+   if(typeChange=="delete"){
+     const isConfirm = confirm("Bạn có chắc muốn xóa nhiều sản phẩm")
+    if(!isConfirm){
+     return
+    }
+   }  
+   if(typeChange=="restore"){
+    const isConfirm = confirm("Bạn có chắc muốn khôi phục nhiều sản phẩm")
+   if(!isConfirm){
+    return
+   }
+  }  
+    if (checkId.length > 0) {
+      let ids = [];
+      const inputIds = formCheck.querySelector("input[name='ids']");
+
+      checkId.forEach((check) => {
+        id = check.value;
+
+        if(typeChange=="position"){
+          const position = check.closest("tr").querySelector("input[name=position]").value;
+          console.log("checkId.forEach ~ position:", position)
+          ids.push(`${id}-${position}`);
+        }else {
+          ids.push(id);
+        }
+        if(typeChange=="restore"){
+          ids.push(id);
+        }
+      });
+      
+      
+      inputIds.value = ids.join(",");
+      formCheck.submit();
+    } else {
+      alert("Vui lòng chọn sản phẩm");
+    }
+  });
+}
