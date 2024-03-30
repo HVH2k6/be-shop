@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const port = 3456
-const route = require("./controller/app-controller");
+const route = require("./router/index.router");
 const connect = require("./config/conect_db");
 const methodOverride = require('method-override')
 

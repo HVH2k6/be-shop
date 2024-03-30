@@ -12,61 +12,107 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Trang tạo mới sản phẩm</title>
   </head>
   <body>
     <div class="container">
+      
       <h2 class="text-center my-5">Tạo mới sản phẩm</h2>
-      <form>
+      <form action="/admin/product/create" method="post" enctype="multipart/form-data">
         <div class="mb-3">
           <label class="form-label">Tên sản phẩm</label>
-          <input type="text" class="form-control" />
+          <input
+            type="text"
+            class="form-control"
+            name="name_product"
+            required
+          />
         </div>
         <div class="mb-3">
           <label class="form-label">Giá</label>
-          <input type="number" class="form-control" />
+          <input
+            type="number"
+            class="form-control"
+            name="price_product"
+            required
+            value="0"
+          />
         </div>
         <div class="mb-3">
           <label class="form-label">Giảm giá</label>
-          <input type="number" class="form-control" />
+          <input
+            type="number"
+            class="form-control"
+            name="sale"
+            max="100"
+            value="0"
+
+          />
         </div>
         <div class="mb-3">
           <label class="form-label">Số lượng</label>
-          <input type="number" class="form-control" />
+          <input type="number" class="form-control" name="quantity" required />
         </div>
         <div class="mb-3">
           <label class="form-label">Ảnh</label>
-          <input type="text" class="form-control" />
+          <input
+            type="file"
+            class="form-control file"
+            id="image_product"
+            name="image_product"
+            accept="image/"
+            upload-image-product
+          />
+          <div class="preview">
+            <img src="" alt="" id="image_preview">
+            <button class="btn btn-danger" id="remove_image">Xóa</button>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Mô tả</label>
-          <textarea class="form-control"></textarea>
+          <textarea class="form-control" name="description"></textarea>
         </div>
         <div class="mb-3">
-            <label  class="form-label">Vị trí</label>
+          <label class="form-label">Vị trí</label>
+          <input
+            type="number"
+            class="form-control"
+            name="position"
+            placeholder="Tự động nhập"
+            
+          />
+        </div>
+        <div class="mb-3 d-flex align-items-center check_form">
+          <div class="form-check">
             <input
-              type="number"
-              class="form-control"
-              
+              class="form-check-input"
+              type="radio"
+              name="status"
+              value="active"
+              id="flexCheckDefault"
             />
+            <label class="form-check-label" for="flexCheckDefault">
+              Hoạt động
+            </label>
           </div>
-          <div class="mb-3 d-flex align-items-center">
-            <div class="form-check ml-2">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Hoạt động
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                  Không hoạt động
-                </label>
-              </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="status"
+              value="inactive"
+              id="flexCheckChecked"
+              checked
+            />
+            <label class="form-check-label" for="flexCheckChecked">
+              Không hoạt động
+            </label>
           </div>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/create.js"></script>
 </html>
