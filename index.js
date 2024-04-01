@@ -9,6 +9,7 @@ const methodOverride = require('method-override')
 
 
 connect.connect();
+require("dotenv").config();
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");

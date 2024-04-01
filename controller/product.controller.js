@@ -178,10 +178,7 @@ module.exports.createPost = async (req, res) => {
   } else {
     position = parseInt(position); // Parse position only if it's not empty
   }
-  if (req.file) {
-    image_product = `uploads/${req.file.filename}`;
-  }
-
+  
   try {
     const product = new Product({
       name_product,
@@ -262,6 +259,6 @@ module.exports.detail = async (req, res) => {
   }
   const idProduct = req.params.id;
   const product = await Product.findOne({ _id: idProduct });
-  
+
   res.render("admin/product/detail", { product: product });
-}
+};
