@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 module.exports.connect = async () => {
 
     try {
-        await mongoose.connect("mongodb://localhost:27017/shop");
+        await mongoose.connect(process.env.MONGODB_CONECT);
         console.log("connect success");
     } catch (error) {
         console.log(error);

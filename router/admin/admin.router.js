@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../../controller/product.controller")
+const uploadMulter = require("../../helper/strongeDisk")
+const multer = require("multer")
+const upload = multer({ storage: uploadMulter() })
+
+
 router.get("/" , controller.index)
 router.get("/product" , controller.product)
 router.patch("/product/:status/:id" , controller.changeStatusSingle)
@@ -9,5 +14,10 @@ router.delete("/product/delete/:id",controller.deleteProduct)
 router.get("/product/trash",controller.trash)
 router.delete("/product/restore/:id",controller.restoreProduct)
 router.get("/product/create",controller.create)
-router.post("/product/create",controller.createPost)
+router.post("/product/create",upload.single("image_product"),controller.createPost)
+router.get("/product/edit/:id",controller.edit)
+router.post("/product/edit/:id", upload.single("image_product"),controller.editPost)
+router.get("/product/:id",controller.detail)
+
+
 module.exports = router

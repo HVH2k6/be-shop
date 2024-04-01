@@ -12,20 +12,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang tạo mới sản phẩm</title>
+    <title>Trang sửa sản phẩm</title>
   </head>
   <body>
     <div class="container">
-      
-      <h2 class="text-center my-5">Tạo mới sản phẩm</h2>
-      <form action="/admin/product/create" method="POST" enctype="multipart/form-data">
+      <h2 class="text-center my-5">Sửa sản phẩm</h2>
+      <form
+        action="/admin/product/edit/<%- product._id %>"
+        method="POST"
+        enctype="multipart/form-data"
+      >
         <div class="mb-3">
           <label class="form-label">Tên sản phẩm</label>
           <input
             type="text"
             class="form-control"
             name="name_product"
-            required
+            value="<%- product.name_product %>"
           />
         </div>
         <div class="mb-3">
@@ -34,7 +37,7 @@
             type="number"
             class="form-control"
             name="price_product"
-            required
+            value="<%- product.price_product %>"
             value="0"
           />
         </div>
@@ -46,12 +49,18 @@
             name="sale"
             max="100"
             value="0"
-
+            value="<%- product.sale %>"
           />
         </div>
         <div class="mb-3">
           <label class="form-label">Số lượng</label>
-          <input type="number" class="form-control" name="quantity" required />
+          <input
+            type="number"
+            class="form-control"
+            name="quantity"
+            required
+            value="<%- product.quantity %>"
+          />
         </div>
         <div class="mb-3">
           <label class="form-label">Ảnh</label>
@@ -64,13 +73,15 @@
             upload-image-product
           />
           <div class="preview">
-            <img src="" alt="" id="image_preview">
+            <img src="" alt="" id="image_preview" />
             <button class="btn btn-danger" id="remove_image">Xóa</button>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Mô tả</label>
-          <textarea class="form-control" name="description"></textarea>
+          <textarea class="form-control" name="description" rows="5">
+            <%-product.description%>
+          </textarea>
         </div>
         <div class="mb-3">
           <label class="form-label">Vị trí</label>
@@ -79,36 +90,38 @@
             class="form-control"
             name="position"
             placeholder="Tự động nhập"
-            
+            value="<%- product.position %>"
           />
         </div>
         <div class="mb-3 d-flex align-items-center check_form">
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="status"
-              value="active"
-              id="flexCheckDefault"
-            />
-            <label class="form-check-label" for="flexCheckDefault">
-              Hoạt động
-            </label>
+              <input
+                  class="form-check-input"
+                  type="radio"
+                  name="status"
+                  value="active"
+                  id="flexCheckDefault"
+                  <%= product.status === 'active' ? 'checked' : '' %>
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                  Hoạt động
+              </label>
           </div>
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="status"
-              value="inactive"
-              id="flexCheckChecked"
-              checked
-            />
-            <label class="form-check-label" for="flexCheckChecked">
-              Không hoạt động
-            </label>
+              <input
+                  class="form-check-input"
+                  type="radio"
+                  name="status"
+                  value="inactive"
+                  id="flexCheckChecked"
+                  <%= product.status === 'inactive' ? 'checked' : '' %>
+              />
+              <label class="form-check-label" for="flexCheckChecked">
+                  Không hoạt động
+              </label>
           </div>
-        </div>
+      </div>
+      
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>

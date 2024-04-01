@@ -9,11 +9,12 @@ if (image_input) {
          remove_btn.style.display = "block";
          if (remove_btn) {
             remove_btn.addEventListener("click", (event) => {
+                event.preventDefault();
                 image_preview.src = "";
                 image_input.value = "";
                 remove_btn.style.display = "none";
             });
-          }
+          }ed
         }
     });
 }

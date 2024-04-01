@@ -47,8 +47,6 @@ module.exports.product = async (req, res) => {
     keyword: searchProduct.keyword,
     totalPage: totalPage,
     currentPage: objPagination.currentPage,
-    successMessage: message.success ? message.success : null,
-    errorMessage: message.error ? message.error : null,
   });
 };
 module.exports.changeStatusSingle = async (req, res) => {
@@ -68,12 +66,12 @@ module.exports.changeStatusMultiple = async (req, res) => {
   switch (status) {
     case "active":
       await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
-      message.success = "Thay đổi trạng thái của  sản phẩm thành công";
+      // message.success = "Thay đổi trạng thái của  sản phẩm thành công";
 
       break;
     case "inactive":
       await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
-      message.success = "Thay đổi trạng thái của  sản phẩm thành công";
+      // message.success = "Thay đổi trạng thá/i của  sản phẩm thành công";
 
       break;
     case "delete":
@@ -81,11 +79,11 @@ module.exports.changeStatusMultiple = async (req, res) => {
         { _id: { $in: ids } },
         { deleted: true, deleted_at: Date.now() }
       );
-      message.success = "Xóa  sản phẩm thành công";
+      // message.success = "Xóa  sản phẩm thành công";
       break;
     case "restore":
       await Product.updateMany({ _id: { $in: ids } }, { deleted: false });
-      message.success = "Khôi phục  sản phẩm thành công";
+      // message.success = "Khôi phục  sản phẩm thành công";
 
       break;
     case "position":
@@ -95,10 +93,10 @@ module.exports.changeStatusMultiple = async (req, res) => {
         position = position;
         await Product.updateOne({ _id: id }, { position: position });
       }
-      message.success = "Thay đổi vị trí của  sản phẩm thành công";
+      // message.success = "Thay đổi vị trí của  sản phẩm thành công";
       break;
     default:
-      message.error = "Có lỗi";
+      // message.error = "Có lỗi";
       break;
   }
   res.redirect("back");
@@ -113,7 +111,7 @@ module.exports.restoreProduct = async (req, res) => {
   const id = req.params.id;
   await Product.updateOne({ _id: id }, { deleted: false });
   res.redirect("back");
-  message.success = "Khôi phục  sản phẩm thành công";
+  // message.success = "Khôi phục  sản phẩm thành công";
 };
 
 module.exports.trash = async (req, res) => {
@@ -169,10 +167,6 @@ module.exports.createPost = async (req, res) => {
     description,
   } = req.body;
 
-  if (!name_product) {
-    alert("Tên sản phẩm không được để trống");
-  }
-  // Parse integers
   price_product = parseInt(price_product);
   sale = parseInt(sale);
   quantity = parseInt(quantity);
@@ -202,10 +196,72 @@ module.exports.createPost = async (req, res) => {
     });
 
     await product.save();
-    message.success = "Thêm sản phẩm thành công";
+
     res.redirect("/");
   } catch (err) {
     console.log(err);
-    message.error = "Có lỗi trong quá trình thêm sản phẩm";
+    // message.error = "Có lỗi trong quá trình thêm sản phẩm";
   }
 };
+module.exports.edit = async (req, res) => {
+  try {
+    if (!req.params.id) {
+      res.redirect("back");
+    }
+    const find = {
+      _id: req.params.id,
+      deleted: false,
+    };
+    const product = await Product.findOne(find);
+    console.log("module.exports.edit= ~ product:", product);
+
+    res.render("admin/product/edit", { product: product });
+  } catch (err) {
+    console.log(err);
+  }
+};
+module.exports.editPost = async (req, res) => {
+  let {
+    name_product,
+    price_product,
+    image_product,
+    status,
+    position,
+    sale,
+    quantity,
+    description,
+  } = req.body;
+  price_product = parseInt(price_product);
+  sale = parseInt(sale);
+  quantity = parseInt(quantity);
+  if (req.file) {
+    image_product = `/uploads/${req.file.filename}`;
+  }
+  if (position === "") {
+    const countPosition = await Product.find().count();
+    position = countPosition + 1;
+  } else {
+    position = parseInt(position);
+  }
+  const product = {
+    name_product,
+    price_product,
+    image_product,
+    status,
+    position,
+    sale,
+    quantity,
+    description,
+  };
+  await Product.updateOne({ _id: req.params.id }, product);
+  res.redirect("back");
+};
+module.exports.detail = async (req, res) => {
+  if (!req.params.id) {
+    res.redirect("back");
+  }
+  const idProduct = req.params.id;
+  const product = await Product.findOne({ _id: idProduct });
+  
+  res.render("admin/product/detail", { product: product });
+}

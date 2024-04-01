@@ -23,17 +23,7 @@
       
       <div class=""><%- include ("../../layout/admin-slidebar.ejs") %></div>
       <div class="content-dashboard">
-        <% if (successMessage) { %>
-          <div class="alert alert-success">
-            <%= successMessage %>
-          </div>
-        <% } %>
         
-        <% if (errorMessage) { %>
-          <div class="alert alert-error">
-            <%= errorMessage %>
-          </div>
-        <% } %>
         
         <h1 class="title">Danh sách sản phẩm</h1>
         <div class="list-dashboard-product">
@@ -62,6 +52,8 @@
                 <th scope="col">Hình ảnh</th>
                 <th scope="col">Tên sản phẩm</th>
                 <th scope="col">Giá</th>
+                <th scope="col">Số lượng</th>
+
                 <th scope="col">Vị trí</th>
 
                 <th scope="col">Trạng thái</th>
@@ -82,7 +74,8 @@
                   />
                 </td>
                 <td><%- product.name_product %></td>
-                <td><%- product.price_product %> usd</td>
+                <td><%- product.price_product %> VNĐ</td>
+                <td><%- product.quantity %></td>
                 <td>
                   <input type="number" style="width: 60px" name="position" min="1" value="<%- product.position %>">
                 </td>
@@ -109,7 +102,9 @@
                 </td>
                 <td>
                   <div class="active">
-                    <button type="button" class="btn btn-primary">Sửa</button>
+                    <a href="/admin/product/<%- product._id %>" class="btn btn-info">Xem chi tiết</a>
+
+                    <a href="/admin/product/edit/<%- product._id %>" class="btn btn-primary">Sửa</a>
                     <button type="button" class="btn btn-danger btn-delete" data-id="<%- product._id %>">Xóa</button>
                   </div>
                 </td>
