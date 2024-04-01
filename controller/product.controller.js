@@ -262,3 +262,10 @@ module.exports.detail = async (req, res) => {
 
   res.render("admin/product/detail", { product: product });
 };
+module.exports.deleteProductInfinite = async (req, res) => {
+  const id = req.params.id;
+  if(id){
+    await Product.deleteOne({_id: id});
+    res.redirect("back");
+  }
+}

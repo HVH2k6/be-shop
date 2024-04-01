@@ -90,8 +90,8 @@
                 </td>
                 <td>
                   <div class="active">
-                    <button type="button" class="btn btn-primary">Sửa</button>
-                    <button type="button" class="btn btn-danger btn-restore" data-id="<%- product._id %>">Khôi phục</button>
+                    <button type="button" class="btn btn-success btn-restore" data-id="<%- product._id %>">Khôi phục</button>
+                    <button type="button" class="btn btn-danger btn-delete" data-id="<%- product._id %>">Xóa vĩnh viễn</button>
                   </div>
                 </td>
               </tr>
@@ -104,6 +104,8 @@
       </div>
       <form data-path="/admin/product" id="form-status" method="POST"></form>
       <form  data-path="/admin/product/restore" method="POST" id="form-restore"></form>
+      <form  data-path="/admin/product/delete-infinite" method="POST" id="form-delete-infinite"></form>
+
     </div>
   </body>
   <script src="/js/trash.js"></script>
