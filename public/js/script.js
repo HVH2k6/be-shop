@@ -72,15 +72,48 @@ if (btnDelete) {
     }
   });
 }
-const delay = 3000;
-
-window.addEventListener("load", () => {
-  const alert = document.querySelector(".alert");
-  const timeAnimation = (delay / 1000).toFixed(2);
-  console.log("window.addEventListener ~ timeAnimation:", timeAnimation)
-  alert.style.animation = `hideAlert linear 1s ${timeAnimation}s forwards`;
-
-  alert.addEventListener("animationend", () => {
-    alert.parentElement.removeChild(alert);
+const itemClick = document.querySelectorAll(".item-click");
+const listItem = document.querySelector(".list-item");
+itemClick.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    let activeClass = "active";
+    const contentAccordion = e.target.nextElementSibling;
+    contentAccordion.style.height = `${contentAccordion.scrollHeight}px`;
+    contentAccordion.classList.toggle(activeClass);
+    if (!contentAccordion.classList.contains("active")) {
+      contentAccordion.style.height = 0;
+    }
   });
 });
+const sortForm = document.querySelector("#sort-form");
+
+if(sortForm){
+  const sort = document.querySelector("#sort");
+  const btnClear= document.querySelector("#btn-clear");
+  let url = new URL(window.location.href);
+  sort.addEventListener("change", (event) => {
+    const value = event.target.value;
+    const [ sortValue,sortKey] = value.split("-");
+    
+    url.searchParams.set("sort", sortValue);
+    url.searchParams.set("sortKey", sortKey);
+    window.location.href = url.href
+  
+  })
+  btnClear.addEventListener("click", (event) => {
+    url.searchParams.delete("sort");
+    url.searchParams.delete("sortKey");
+    window.location.href = url.href
+  })
+  const sortKey = url.searchParams.get("sortKey");
+  console.log("sortKey:", sortKey)
+  const sortValue = url.searchParams.get("sort");
+  console.log("sortValue:", sortValue)
+  if(sortKey && sortValue){
+    const stringSort = `${sortValue}-${sortKey}`;
+    const selected = document.querySelector(`option[value="${stringSort}"]`);
+    console.log("stringSort:", stringSort)
+    selected.selected = true;
+  }
+  
+}

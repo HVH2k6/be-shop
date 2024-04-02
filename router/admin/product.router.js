@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../../controller/product.controller");
+
+
 const uploadCloud = require("../../middleware/cloud.middleware");
 const multer = require("multer");
 const fileUpload = multer();
@@ -23,6 +25,8 @@ router.get("/product/edit/:id", controller.edit);
 // router.post("/product/edit/:id", upload.single("image_product"),controller.editPost)
 router.get("/product/:id", controller.detail);
 router.delete("/product/delete-infinite/:id", controller.deleteProductInfinite);
+
+
 
 
 module.exports = router;

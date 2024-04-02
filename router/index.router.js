@@ -1,9 +1,13 @@
 
 
 const homeRouter = require("../controller/home.controller");
-const adminRouter = require("./admin/admin.router");
+const productRouter = require("./admin/product.router");
+const categoryRouter = require("./admin/category.router");
+
+
 module.exports = (app) => {
   app.use("/", homeRouter);
-  app.use("/admin", adminRouter);
+  app.use("/admin", productRouter);
+  app.use("/admin", categoryRouter);
   
 };

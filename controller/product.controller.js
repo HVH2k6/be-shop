@@ -32,8 +32,17 @@ module.exports.product = async (req, res) => {
   if (searchProduct.regex) {
     find.name_product = searchProduct.regex;
   }
+  // sort
+  let sort = {};
+  if (req.query.sort && req.query.sortKey) {
+    sort[req.query.sort] = req.query.sortKey;
+    console.log(sort);
+  } else {
+    sort.position = "desc";
+  }
+  // end-sort
   const products = await Product.find(find)
-    .sort({ position: "desc" })
+    .sort(sort)
     .limit(objPagination.limtItem)
     .skip(objPagination.skip);
 
@@ -178,7 +187,7 @@ module.exports.createPost = async (req, res) => {
   } else {
     position = parseInt(position); // Parse position only if it's not empty
   }
-  
+
   try {
     const product = new Product({
       name_product,
@@ -264,8 +273,8 @@ module.exports.detail = async (req, res) => {
 };
 module.exports.deleteProductInfinite = async (req, res) => {
   const id = req.params.id;
-  if(id){
-    await Product.deleteOne({_id: id});
+  if (id) {
+    await Product.deleteOne({ _id: id });
     res.redirect("back");
   }
-}
+};

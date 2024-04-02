@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
     },
     position: Number,
     deleted_at: Date,
-    price_product:Number,
+    
     sale:Number,
     quantity:Number,
     description:String,
