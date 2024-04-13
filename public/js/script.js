@@ -1,8 +1,8 @@
 const btn_status = document.querySelectorAll("[button-status]");
 const formSearch = document.querySelector("#form-search");
 const btn_pagination = document.querySelectorAll("[button-pagination]");
-console.log("btn_pagination:", btn_pagination);
-if (btn_status.length > 0) {
+
+if (btn_status) {
   btn_status.forEach((btn) => {
     btn.addEventListener("click", (event) => {
       const status = btn.getAttribute("button-status");
@@ -42,78 +42,69 @@ btn_pagination.forEach((btn) => {
     }
   });
 });
-formSearch.addEventListener("submit", (event) => {
-  event.preventDefault();
-  let url = new URL(window.location.href);
+if (formSearch) {
+  formSearch.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let url = new URL(window.location.href);
 
-  const keyword = event.target.elements.keyword.value;
+    const keyword = event.target.elements.keyword.value;
 
-  if (keyword) {
-    url.searchParams.set("keyword", keyword);
-  } else {
-    url.searchParams.delete("keyword");
-  }
-  window.location.href = url;
-});
+    if (keyword) {
+      url.searchParams.set("keyword", keyword);
+    } else {
+      url.searchParams.delete("keyword");
+    }
+    window.location.href = url;
+  });
+}
 //check box
 
 const formDelete = document.querySelector("#form-delete");
-const btnDelete = document.querySelector(".btn-delete");
+const btnDelete = document.querySelectorAll(".btn-delete");
 const path = formDelete.getAttribute("data-path");
 if (btnDelete) {
-  btnDelete.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (confirm("Bạn có chắc muốn xóa sản phẩm này không?")) {
-      const id = btnDelete.getAttribute("data-id");
-      const action = `${path}/${id}?_method=DELETE`;
-      formDelete.action = action;
-      console.log("btnDelete.addEventListener ~ action:", action);
-      formDelete.submit();
-    }
+  btnDelete.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (confirm("Bạn có chắc muốn xóa sản phẩm này không?")) {
+        const id = btn.getAttribute("data-id");
+        const action = `${path}/${id}?_method=DELETE`;
+        formDelete.action = action;
+        console.log("btn.addEventListener ~ action:", action)
+        
+        formDelete.submit();
+      }
+    });
   });
 }
-const itemClick = document.querySelectorAll(".item-click");
-const listItem = document.querySelector(".list-item");
-itemClick.forEach((item) => {
-  item.addEventListener("click", (e) => {
-    let activeClass = "active";
-    const contentAccordion = e.target.nextElementSibling;
-    contentAccordion.style.height = `${contentAccordion.scrollHeight}px`;
-    contentAccordion.classList.toggle(activeClass);
-    if (!contentAccordion.classList.contains("active")) {
-      contentAccordion.style.height = 0;
-    }
-  });
-});
+
 const sortForm = document.querySelector("#sort-form");
 
-if(sortForm){
+if (sortForm) {
   const sort = document.querySelector("#sort");
-  const btnClear= document.querySelector("#btn-clear");
+  const btnClear = document.querySelector("#btn-clear");
   let url = new URL(window.location.href);
   sort.addEventListener("change", (event) => {
     const value = event.target.value;
-    const [ sortValue,sortKey] = value.split("-");
-    
+    const [sortValue, sortKey] = value.split("-");
+
     url.searchParams.set("sort", sortValue);
     url.searchParams.set("sortKey", sortKey);
-    window.location.href = url.href
-  
-  })
+    window.location.href = url.href;
+  });
   btnClear.addEventListener("click", (event) => {
     url.searchParams.delete("sort");
     url.searchParams.delete("sortKey");
-    window.location.href = url.href
-  })
+    window.location.href = url.href;
+  });
   const sortKey = url.searchParams.get("sortKey");
-  console.log("sortKey:", sortKey)
+  console.log("sortKey:", sortKey);
   const sortValue = url.searchParams.get("sort");
-  console.log("sortValue:", sortValue)
-  if(sortKey && sortValue){
+  console.log("sortValue:", sortValue);
+  if (sortKey && sortValue) {
     const stringSort = `${sortValue}-${sortKey}`;
     const selected = document.querySelector(`option[value="${stringSort}"]`);
-    console.log("stringSort:", stringSort)
+    console.log("stringSort:", stringSort);
     selected.selected = true;
   }
-  
 }

@@ -16,65 +16,50 @@
   </head>
   <body>
     <div class="container">
-      
       <h2 class="text-center my-5">Tạo mới sản phẩm</h2>
-      <form action="/admin/product/create" method="POST" enctype="multipart/form-data">
+      <form
+        action="/admin/category/create"
+        method="POST"
+        enctype="multipart/form-data"
+        autocomplete="off"
+      >
         <div class="mb-3">
           <label class="form-label">Tên sản phẩm</label>
           <input
             type="text"
             class="form-control"
-            name="name_product"
+            name="name_category"
             required
           />
         </div>
         <div class="mb-3">
-          <label class="form-label">Giá</label>
-          <input
-            type="number"
-            class="form-control"
-            name="price_product"
-            required
-            value="0"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Giảm giá</label>
-          <input
-            type="number"
-            class="form-control"
-            name="sale"
-            max="100"
-            value="0"
+          <label class="form-label">Danh mục cha</label>
+          <%- include ("../../../components/category/select-category.ejs") %>
 
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Danh mục</label>
-          <%- include ("../../../components/category/select-category-create-product.ejs") %>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Số lượng</label>
-          <input type="number" class="form-control" name="quantity" required />
+        
+        
         </div>
         <div class="mb-3">
           <label class="form-label">Ảnh</label>
           <input
             type="file"
             class="form-control file image_file_preview"
-            id="image_product"
-            name="image_product"
+            id="image_category"
+            name="image_category"
             accept="image/"
-            upload-image-product
+            upload-image-category
           />
           <div class="preview">
-            <img src="" alt="" class="image_preview_2">
-            <button class="btn btn-danger remove_image_2">Xóa</button>
+            <img src="" alt="" class="image_preview" />
+            <button class="btn btn-danger remove_image">Xóa</button>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Mô tả</label>
-          <textarea class="form-control decs_textarea" name="description"></textarea>
+          <textarea
+            class="form-control decs_textarea"
+            name="description"
+          ></textarea>
         </div>
         <div class="mb-3">
           <label class="form-label">Vị trí</label>
@@ -83,7 +68,6 @@
             class="form-control"
             name="position"
             placeholder="Tự động nhập"
-            
           />
         </div>
         <div class="mb-3 d-flex align-items-center check_form">
@@ -117,7 +101,7 @@
       </form>
     </div>
   </body>
-  <script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
+  <script type="application/javascript" src="/tinymce/tinymce.min.js"></script>
   <script src="/js/admin/my-tinymce-config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

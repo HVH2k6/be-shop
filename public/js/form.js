@@ -32,11 +32,13 @@ if (checkBoxMultiple) {
     checkBox.addEventListener("click", (event) => {
       checkId.forEach((check) => {
         check.checked = event.target.checked;
+        console.log("checkBoxAll.addEventListener ~ check:", check.value);
       });
     });
   });
   checkId.forEach((check) => {
     check.addEventListener("click", () => {
+      console.log("check.addEventListener ~ check:", check.value);
       const coutCheck = checkBoxMultiple.querySelectorAll(
         "input[name='id']:checked"
       ).length;
@@ -82,7 +84,7 @@ if (formCheck) {
 
         if(typeChange=="position"){
           const position = check.closest("tr").querySelector("input[name=position]").value;
-          console.log("checkId.forEach ~ position:", position)
+
           ids.push(`${id}-${position}`);
         }else {
           ids.push(id);
@@ -94,6 +96,7 @@ if (formCheck) {
       
       
       inputIds.value = ids.join(",");
+      
       formCheck.submit();
     } else {
       alert("Vui lòng chọn sản phẩm");

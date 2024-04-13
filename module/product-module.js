@@ -7,6 +7,10 @@ const productSchema = new mongoose.Schema({
     name_product: String,
     price_product: Number,
     image_product: String,
+    product_category: {
+        type:String,
+        default:""
+    },
     status: String,
     deleted: {
         type: Boolean,

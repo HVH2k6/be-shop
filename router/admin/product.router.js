@@ -18,14 +18,20 @@ router.post(
   "/product/create",
   fileUpload.single("image_product"),
     uploadCloud.cloud,
+
   controller.createPost
 );
 
 router.get("/product/edit/:id", controller.edit);
-// router.post("/product/edit/:id", upload.single("image_product"),controller.editPost)
+router.post("/product/edit/:id", 
+fileUpload.single("image_product"),
+uploadCloud.cloud,
+
+
+controller.editPost)
 router.get("/product/:id", controller.detail);
 router.delete("/product/delete-infinite/:id", controller.deleteProductInfinite);
-
+router.delete("/product/delete-img/:slug", controller.deleteImgProduct);
 
 
 

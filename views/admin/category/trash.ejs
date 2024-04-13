@@ -53,27 +53,27 @@
               </tr>
             </thead>
             <tbody>
-              <% products.forEach((product, index) => { %>
+              <% categoties.forEach((item, index) => { %>
               <tr>
-                <td>  <input class="form-check-input" type="checkbox" value="<%- product._id %>" name="id"/></td>
+                <td>  <input class="form-check-input" type="checkbox" value="<%- item._id %>" name="id"/></td>
                 <th scope="row"><%- index + 1 %></th>
                 <td>
                   <img
-                    src="<%- product.image_product %>"
-                    alt="Ảnh <%- product.name_product %>"
+                    src="<%- item.image_category %>"
+                    alt="Ảnh <%- item.name_category %>"
                     class="img-product"
                     loading="lazy"
                   />
                 </td>
-                <td><%- product.name_product %></td>
-                <td><%- product.price_product %> usd</td>
+                <td><%- item.name_category %></td>
+                
                 <td>
-                  <% if (product.status == "active") { %>
+                  <% if (item.status == "active") { %>
                   <a
                     class="status-active"
                     href="javascript:;"
-                    data-id="<%- product._id %>"
-                    data-status="<%- product.status %>"
+                    data-id="<%- item._id %>"
+                    data-status="<%- item.status %>"
                     button_change_status
                     >hoạt động</a
                   >
@@ -81,8 +81,8 @@
                   <a
                     class="status-inactive"
                     href="javascript:;"
-                    data-id="<%- product._id %>"
-                    data-status="<%- product.status %>"
+                    data-id="<%- item._id %>"
+                    data-status="<%- item.status %>"
                     button_change_status
                     >không hoạt động</a
                   >
@@ -90,8 +90,8 @@
                 </td>
                 <td>
                   <div class="active">
-                    <button type="button" class="btn btn-success btn-restore" data-id="<%- product._id %>">Khôi phục</button>
-                    <button type="button" class="btn btn-danger btn-delete" data-id="<%- product._id %>">Xóa vĩnh viễn</button>
+                    <button type="button" class="btn btn-success btn-restore" data-id="<%- item._id %>">Khôi phục</button>
+                    <button type="button" class="btn btn-danger btn-delete" data-id="<%- item._id %>">Xóa vĩnh viễn</button>
                   </div>
                 </td>
               </tr>
@@ -102,13 +102,13 @@
          <%- include("../../../components/pagination-page.ejs") %>
         </div>
       </div>
-      <form data-path="/admin/product" id="form-status" method="POST"></form>
-      <form  data-path="/admin/product/restore" method="POST" id="form-restore"></form>
-      <form  data-path="/admin/product/delete-infinite" method="POST" id="form-delete-infinite"></form>
+      <form data-path="/admin/category" id="form-status" method="POST"></form>
+      <form  data-path="/admin/category/restore" method="POST" id="form-restore"></form>
+      <form  data-path="/admin/category/delete-infinite" method="POST" id="form-delete-infinite"></form>
 
     </div>
   </body>
   <script src="/js/trash.js"></script>
-  <!-- <script src="/js/script.js"></script> -->
+  <script src="/js/script.js"></script>
   <script src="/js/form.js"></script>
   </html>

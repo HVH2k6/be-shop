@@ -1,5 +1,5 @@
 tinymce.init({
-  selector: "textarea#decs_textarea",
+  selector: "textarea.decs_textarea",
   menubar: "file edit view format tools table help",
   height: 500,
   plugins:

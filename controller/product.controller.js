@@ -5,6 +5,13 @@ let message = {
   success: "",
   error: "",
 };
+const cloudinary = require("cloudinary").v2;
+const Category = require("../module/category-module");
+cloudinary.config({
+  cloud_name: "dpciotkix",
+  api_key: "211352744843712",
+  api_secret: "if0bDGXhrqwwRITSRPagguTX27A",
+});
 module.exports.index = async (req, res) => {
   res.render("admin/dashboard");
 };
@@ -104,6 +111,15 @@ module.exports.changeStatusMultiple = async (req, res) => {
       }
       // message.success = "Thay đổi vị trí của  sản phẩm thành công";
       break;
+    case "delete-infinite":
+      for (const item of ids) {
+        let [id, position] = item.split("-");
+        console.log("router.patch ~ id:", id);
+        position = position;
+        await Product.deleteOne({ _id: id });
+      }
+      // message.success = "Thay đổi vị trí của  sản phẩm thành công";
+      break;
     default:
       // message.error = "Có lỗi";
       break;
@@ -162,7 +178,27 @@ module.exports.trash = async (req, res) => {
   });
 };
 module.exports.create = async (req, res) => {
-  res.render("admin/product/create");
+  const find = {
+    deleted: false,
+  }
+  function createTree(arr, parentId = "") {
+    const tree = [];
+    arr.forEach((item) => {
+      if (item.parent_id === parentId) {
+        const newItem = item;
+        const children = createTree(arr, item.id);
+        if (children.length > 0) {
+          newItem.children = children;
+        }
+        tree.push(newItem);
+      }
+    });
+    return tree;
+  }
+  const categories = await Category.find(find);
+  const newCategories = createTree(categories);
+  console.log("module.exports.create= ~ newCategories:", newCategories)
+  res.render("admin/product/create", { categories: newCategories });
 };
 module.exports.createPost = async (req, res) => {
   let {
@@ -174,6 +210,7 @@ module.exports.createPost = async (req, res) => {
     sale,
     quantity,
     description,
+    product_category
   } = req.body;
 
   price_product = parseInt(price_product);
@@ -196,6 +233,7 @@ module.exports.createPost = async (req, res) => {
       image_product,
       status,
       position,
+      product_category,
       sale,
       quantity,
       description,
@@ -203,10 +241,10 @@ module.exports.createPost = async (req, res) => {
 
     await product.save();
 
-    res.redirect("/");
+    res.redirect("back");
   } catch (err) {
     console.log(err);
-    // message.error = "Có lỗi trong quá trình thêm sản phẩm";
+    
   }
 };
 module.exports.edit = async (req, res) => {
@@ -219,7 +257,7 @@ module.exports.edit = async (req, res) => {
       deleted: false,
     };
     const product = await Product.findOne(find);
-    console.log("module.exports.edit= ~ product:", product);
+    
 
     res.render("admin/product/edit", { product: product });
   } catch (err) {
@@ -240,8 +278,8 @@ module.exports.editPost = async (req, res) => {
   price_product = parseInt(price_product);
   sale = parseInt(sale);
   quantity = parseInt(quantity);
-  if (req.file) {
-    image_product = `/uploads/${req.file.filename}`;
+  if (!req.file) {
+    image_product = image_product;
   }
   if (position === "") {
     const countPosition = await Product.find().count();
@@ -278,3 +316,27 @@ module.exports.deleteProductInfinite = async (req, res) => {
     res.redirect("back");
   }
 };
+module.exports.deleteImgProduct = async (req, res) => {
+  const id = req.params.slug;
+
+  if (id) {
+    try {
+      const { image_product } = await Product.findOne({ _id: id });
+      if (image_product) {
+        const url_img = image_product.split("/").pop().split(".")[0];
+        if (url_img) {
+          await cloudinary.uploader.destroy(url_img);
+          console.log("Deleted image:", url_img);
+        await Product.updateOne({ _id: id }, { image_product: "" });
+        }
+      }
+      res.redirect("back");
+    } catch (error) {
+      console.error("Error deleting image:", error);
+      res.status(500).send("Error deleting image");
+    }
+  } else {
+    res.status(400).send("Invalid product ID");
+  }
+};
+

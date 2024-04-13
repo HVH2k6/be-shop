@@ -15,6 +15,7 @@
     <title>Document</title>
   </head>
   <body>
+    <%- include ("layout/header.ejs") %>
     <div class="container">
       <div class="list-product">
         <% products.forEach(product => { %> <% if (product.status=="active") {

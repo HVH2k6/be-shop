@@ -80,33 +80,43 @@
 .check_form{
   column-gap: 25px;
 }
-.preview{
 
- max-width: 250px;
- max-height: 250px;
- width: max-content;
- height: max-content;
- overflow: hidden;
+.image_preview{
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
 }
-#remove_image{
-  display: none;
+.remove_image{
+  /* display: none; */
 
 }
 .list-item{
   height: 0;
   overflow: hidden;
   transition: all 0.35s linear;
+  list-style: none;
+  margin: 0;
+  
 }
 .list-item .active{
 height: auto;
 }
-.item-click {
+.item-slidebar {
   padding: 20px;
   border-bottom: 1px solid #ccc;
+}
+.item-click {
+  
 }
 .item-click a {
   text-decoration: none;
   font-size: 18px;
   font-weight: 500;
   color: #000;
+}
+.preview{
+  display: flex;
+}
+.remove_image_2{
+  display: none;
 }

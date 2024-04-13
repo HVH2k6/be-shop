@@ -17,24 +17,30 @@
     <title>Trang quản lý sản phẩm</title>
   </head>
   <body>
-    <%- include ("../../layout/header-admin.ejs") %>
+   
     <div class="layout-admin">
+   
       <div class=""><%- include ("../../layout/admin-slidebar.ejs") %></div>
-      <div class="content-dashboard">
+      <div class="content-dashboard">        
         <h1 class="title">Danh sách sản phẩm</h1>
         <div class="list-dashboard-product">
           <div class="mb-4">
               <div class="row">
                   
                 
-                
-                <%- include ("../../layout/search-form.ejs") %>
                 <%- include ("../../layout/fillter.ejs") %>
                   
               </div>
           </div>
           <div class="mb-4">     
-              <%- include("../../../components/form-trash.ejs") %>
+            <%- include("../../../components/form-category-change.ejs") %>
+             
+          </div>
+          <div class="mb-4">
+            <h3 class="title mb-2">Sắp xếp</h3>
+            <div >
+              <%- include("../../../components/sort-form.ejs") %>
+            </div>
           </div>
       </div>
       
@@ -47,33 +53,40 @@
                 <th scope="col">Stt</th>
                 <th scope="col">Hình ảnh</th>
                 <th scope="col">Tên sản phẩm</th>
-                <th scope="col">Giá</th>
+                
+
+                <th scope="col">Vị trí</th>
+
                 <th scope="col">Trạng thái</th>
                 <th scope="col">Hành động</th>
               </tr>
             </thead>
             <tbody>
-              <% products.forEach((product, index) => { %>
+              <% categories.forEach((item, index) => { %>
               <tr>
-                <td>  <input class="form-check-input" type="checkbox" value="<%- product._id %>" name="id"/></td>
+                <td>  <input class="form-check-input" type="checkbox" value="<%- item._id %>" name="id"/></td>
                 <th scope="row"><%- index + 1 %></th>
                 <td>
                   <img
-                    src="<%- product.image_product %>"
-                    alt="Ảnh <%- product.name_product %>"
+                    src="<%- item.image_category %>"
+                    
                     class="img-product"
                     loading="lazy"
                   />
                 </td>
-                <td><%- product.name_product %></td>
-                <td><%- product.price_product %> usd</td>
+                <td><%- item.name_category %></td>
+                
+                <!-- <td><%- item.quantity %></td> -->
                 <td>
-                  <% if (product.status == "active") { %>
+                  <input type="number" style="width: 60px" name="position" min="1" value="<%- item.position %>">
+                </td>
+                <td>
+                  <% if (item.status == "active") { %>
                   <a
                     class="status-active"
                     href="javascript:;"
-                    data-id="<%- product._id %>"
-                    data-status="<%- product.status %>"
+                    data-id="<%- item._id %>"
+                    data-status="<%- item.status %>"
                     button_change_status
                     >hoạt động</a
                   >
@@ -81,8 +94,8 @@
                   <a
                     class="status-inactive"
                     href="javascript:;"
-                    data-id="<%- product._id %>"
-                    data-status="<%- product.status %>"
+                    data-id="<%- item._id %>"
+                    data-status="<%- item.status %>"
                     button_change_status
                     >không hoạt động</a
                   >
@@ -90,8 +103,10 @@
                 </td>
                 <td>
                   <div class="active">
-                    <button type="button" class="btn btn-success btn-restore" data-id="<%- product._id %>">Khôi phục</button>
-                    <button type="button" class="btn btn-danger btn-delete" data-id="<%- product._id %>">Xóa vĩnh viễn</button>
+                    <a href="/admin/category/<%- item._id %>" class="btn btn-info">Xem chi tiết</a>
+
+                    <a href="/admin/category/edit/<%- item._id %>" class="btn btn-primary">Sửa</a>
+                    <button type="button" class="btn btn-danger btn-delete" data-id="<%- item._id %>">Xóa</button>
                   </div>
                 </td>
               </tr>
@@ -99,16 +114,14 @@
             </tbody>
           </table>
 
-         <%- include("../../../components/pagination-page.ejs") %>
+   
         </div>
       </div>
-      <form data-path="/admin/product" id="form-status" method="POST"></form>
-      <form  data-path="/admin/product/restore" method="POST" id="form-restore"></form>
-      <form  data-path="/admin/product/delete-infinite" method="POST" id="form-delete-infinite"></form>
-
+      <form data-path="/admin/category" id="form-status" method="POST"></form>
+      <form  data-path="/admin/category/delete" method="POST" id="form-delete"></form>
     </div>
   </body>
-  <script src="/js/trash.js"></script>
-  <!-- <script src="/js/script.js"></script> -->
+  <script src="/js/script.js"></script>
   <script src="/js/form.js"></script>
-  </html>
+  
+</html>

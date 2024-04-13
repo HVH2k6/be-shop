@@ -7,74 +7,68 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang tạo mới sản phẩm</title>
+    <title>Trang sửa danh mục</title>
   </head>
   <body>
     <div class="container">
-      
-      <h2 class="text-center my-5">Tạo mới sản phẩm</h2>
-      <form action="/admin/product/create" method="POST" enctype="multipart/form-data">
+      <h2 class="text-center my-5">Sửa danh mục</h2>
+      <form
+        action="/admin/category/edit/<%- data._id %>"
+        method="POST"
+        enctype="multipart/form-data"
+      >
         <div class="mb-3">
           <label class="form-label">Tên sản phẩm</label>
           <input
             type="text"
             class="form-control"
-            name="name_product"
+            name="name_category"
+            value="<%- data.name_category %>"
             required
           />
         </div>
         <div class="mb-3">
-          <label class="form-label">Giá</label>
-          <input
-            type="number"
-            class="form-control"
-            name="price_product"
-            required
-            value="0"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Giảm giá</label>
-          <input
-            type="number"
-            class="form-control"
-            name="sale"
-            max="100"
-            value="0"
-
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Danh mục</label>
-          <%- include ("../../../components/category/select-category-create-product.ejs") %>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Số lượng</label>
-          <input type="number" class="form-control" name="quantity" required />
+          <label class="form-label">Danh mục cha</label>
+          <%- include ("../../../components/category/select-category-edit.ejs") %>
         </div>
         <div class="mb-3">
           <label class="form-label">Ảnh</label>
           <input
             type="file"
             class="form-control file image_file_preview"
-            id="image_product"
-            name="image_product"
+            id="image_category"
+            name="image_category"
             accept="image/"
-            upload-image-product
+            upload-image-category
           />
           <div class="preview">
-            <img src="" alt="" class="image_preview_2">
-            <button class="btn btn-danger remove_image_2">Xóa</button>
+            
+            <img
+              src="<%- data.image_category %>"
+              alt=""
+              class="image_preview"
+            />
+            <button
+              class="btn btn-danger remove_image"
+              type="submit"
+              data-id="<%- data._id %>"
+            >
+              Xóa
+            </button>
+
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Mô tả</label>
-          <textarea class="form-control decs_textarea" name="description"></textarea>
+          <textarea class="form-control decs_textarea" name="description">
+<%- data.description %>
+    </textarea
+          >
         </div>
         <div class="mb-3">
           <label class="form-label">Vị trí</label>
@@ -83,43 +77,42 @@
             class="form-control"
             name="position"
             placeholder="Tự động nhập"
-            
+            value="<%- data.position %>"
           />
         </div>
         <div class="mb-3 d-flex align-items-center check_form">
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="status"
-              value="active"
-              id="flexCheckDefault"
-            />
+            <input class="form-check-input" type="radio" name="status"
+            value="active" id="flexCheckDefault" <%= data.status ===
+            'active' ? 'checked' : '' %> />
             <label class="form-check-label" for="flexCheckDefault">
               Hoạt động
             </label>
           </div>
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="status"
-              value="inactive"
-              id="flexCheckChecked"
-              checked
-            />
+            <input class="form-check-input" type="radio" name="status"
+            value="inactive" id="flexCheckChecked" <%= data.status ===
+            'inactive' ? 'checked' : '' %> />
             <label class="form-check-label" for="flexCheckChecked">
               Không hoạt động
             </label>
           </div>
         </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
+    <form
+      action="/admin/category/delete-img"
+      class=""
+      form-delete-img
+      method="post"
+    ></form>
   </body>
-  <script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
+
+  <script type="application/javascript" src="/tinymce/tinymce.min.js"></script>
   <script src="/js/admin/my-tinymce-config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.11.0/cloudinary-core-shrinkwrap.min.js"></script>
   <script src="/js/create.js"></script>
 </html>

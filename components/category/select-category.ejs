@@ -1,0 +1,25 @@
+<select name="parent_id" id="parent_id" class="form-select">
+    <option value="" disabled selected>--Chọn danh mục--</option>
+    <% if (categories) { %>
+        <% categories.forEach((item, level = 0) => { %>
+            
+            <option value="<%- item._id %>">
+                <%-  item.name_category %>
+            </option>
+            <% renderChildCategories(item.children, level + 1); %>
+        <% }) %>
+    <% } %>
+  </select>
+  
+  <% function renderChildCategories(children, level, parent_id = "") { %>
+    <% if (children && children.length > 0) { %>
+        <% children.forEach(child => { %>
+            <% var prefix = Array(level + 1).join("--"); %>
+            <option value="<%- child._id %>">
+                <%- prefix + child.name_category %>
+            </option>
+            <% renderChildCategories(child.children, level + 1); %>
+        <% }) %>
+    <% } %>
+  <% } %>
+  
