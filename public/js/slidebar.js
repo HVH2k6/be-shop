@@ -10,4 +10,4 @@ itemClick.forEach((item) => {
       contentAccordion.style.height = 0;
     }
   });
-});
+})

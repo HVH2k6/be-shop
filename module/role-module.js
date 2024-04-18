@@ -15,6 +15,7 @@ const roleSchema = new mongoose.Schema({
     },
     position: Number,
     deleted_at: Date,
+    created_at: Date,
     description: String,
     slug: {
         type: String,

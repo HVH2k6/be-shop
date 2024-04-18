@@ -21,32 +21,31 @@
         <% products.forEach(product => { %> <% if (product.status=="active") {
         %>
         <div class="card">
-          <img src="<%=product.image_product%>" class="card-img-top card-img" alt="..." />
+          <img
+            src="<%=product.image_product%>"
+            class="card-img-top card-img"
+            alt="..."
+          />
           <div class="card-body">
-            <h5 class="card-title">
-              <%=product.name_product%>
-            </h5>
+            <h5 class="card-title"><%=product.name_product%></h5>
             <div class="price-info">
               <% if(product.sale > 0) { %>
-                <span class="price-before">
-                  <%=product.price_product%> VNĐ
-                </span>
-                <span class="price">
-                  <%= Math.round(product.price_product - (product.price_product * product.sale / 100)) %> VNĐ
-
-                </span>
+              <span class="price-before"> <%=product.price_product%> VNĐ </span>
+              <span class="price">
+                <%= Math.round(product.price_product - (product.price_product *
+                product.sale / 100)) %> VNĐ
+              </span>
               <% } else { %>
-                <span class="price">
-                  <%=product.price_product%> VNĐ
-                </span>
+              <span class="price"> <%=product.price_product%> VNĐ </span>
               <% } %>
             </div>
-            
+
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
         <% } %> <% }); %>
       </div>
+  
     </div>
   </body>
-</html>
+  </html>
