@@ -8,6 +8,7 @@ const accountSchema = new mongoose.Schema({
     password_account: String,
     email_account: String,
     status: String,
+    avatar_account: String,
     token: {
         type: String,
         default: generate.generate(20),
@@ -17,6 +18,7 @@ const accountSchema = new mongoose.Schema({
         default: false
     },
     role_id:String,
+    phone_number:String,
     position: Number,
     deleted_at: Date,
     created_at: Date,
